@@ -1,5 +1,6 @@
 module Hypothesis
   class Ledger
+    attr_accessor :users
     def initialize
       @users ||= {}
     end
