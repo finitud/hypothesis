@@ -8,7 +8,7 @@ ledger = Hypothesis::Ledger.new
 end
 
 CSV.read('example-data.csv').each do |transaction|
-  ledger.add_transaction(transaction)
+  ledger.add_transaction(*transaction)
 end
 
 puts ledger.balance_for("mary")
