@@ -24,10 +24,13 @@ RSpec.describe Hypothesis::Ledger do
     before do
       ledger.add_user("alice")
       ledger.add_user("bob")
-      ledger.add_transaction("2015-01-16", "alice", "bob", "10.00")
     end
 
     describe '#add_transaction' do
+      before do
+        ledger.add_transaction("2015-01-16", "alice", "bob", "10.00")
+      end
+
       it 'adds a new transaction to the ledger' do
         expect(ledger.transactions.count).to eq(1)
       end
@@ -43,6 +46,18 @@ RSpec.describe Hypothesis::Ledger do
       end
     end
 
+    describe '#balance_for' do
+      before do
+        ledger.add_transaction("2015-01-16", "alice", "bob", "10.00")
+        ledger.add_transaction("2015-01-17", "alice", "bob", "10.00")
+      end
+
+      it 'calculates a user balance up to the specified date' do
+        expect(ledger.balance_for("alice", date: "2015-01-16")).to eq(0.0)
+        expect(ledger.balance_for("alice", date: "2015-01-17")).to eq(-10.0)
+        expect(ledger.balance_for("alice", date: "2015-01-18")).to eq(-20.0)
+      end
+    end
   end
 
 end

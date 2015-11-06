@@ -1,3 +1,5 @@
+require 'time'
+
 module Hypothesis
   class Ledger
     attr_accessor :users
@@ -17,7 +19,7 @@ module Hypothesis
     def balance_for(user, date: nil)
       running_total = 0.0
       @users.fetch(user).each do |t|
-        running_total += t.amount
+        running_total += t.amount if before?(t.date, date)
       end
       running_total
     end
@@ -26,6 +28,11 @@ module Hypothesis
       @transactions << [date, user, counterparty, amount]
       @users[user] << UserTransaction.new(date, counterparty, -amount.to_f)
       @users[counterparty] << UserTransaction.new(date, user, amount.to_f)
+    end
+
+    def before?(test_date, date)
+      return true if date.nil?
+      Date.parse(test_date) < Date.parse(date)
     end
   end
 end
