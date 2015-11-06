@@ -1,5 +1,6 @@
-require "hypothesis/version"
+require 'hypothesis/version'
+require 'hypothesis/ledger'
 
 module Hypothesis
-  # Your code goes here...
+
 end
