@@ -11,5 +11,5 @@ CSV.read('example-data.csv').each do |transaction|
   ledger.add_transaction(transaction)
 end
 
-puts ledger.balance(user: "mary")
-puts ledger.balance(user: "mary", date: "2015-01-16")
+puts ledger.balance_for("mary")
+puts ledger.balance_for("mary", date: "2015-01-16")
