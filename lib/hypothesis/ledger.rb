@@ -26,8 +26,8 @@ module Hypothesis
 
     def add_transaction(date, user, counterparty, amount)
       @transactions << [date, user, counterparty, amount]
-      @users[user] << UserTransaction.new(date, counterparty, -amount.to_f)
-      @users[counterparty] << UserTransaction.new(date, user, amount.to_f)
+      @users.fetch(user) << UserTransaction.new(date, counterparty, -amount.to_f)
+      @users.fetch(counterparty) << UserTransaction.new(date, user, amount.to_f)
     end
 
     def before?(test_date, date)

@@ -3,7 +3,7 @@ require 'csv'
 
 ledger = Hypothesis::Ledger.new
 
-%w(john mary supermarket).each do |user|
+%w(john mary supermarket insurance).each do |user|
   ledger.add_user(user)
 end
 
